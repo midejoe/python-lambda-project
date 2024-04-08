@@ -6,11 +6,12 @@ phases:
       python: 3.12
     commands:
       - echo "Installing packages...."
-      - cd Serverless-Infra
+      - cd Codebuild
       - pip install -r requirements.txt
   build:
     commands:
       - echo "Zip the lambda package...."
+      - cd CodeBuild
       - zip -r lambda_package.zip lambda_function.py requirements.txt
   post_build:
     commands:
