@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo "Installing packages...."
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo "Zip the lambda package...."
+      - zip -r lambda_package.zip lambda_function.py requirements.txt
+  post_build:
+    commands:
+      - echo "Updating the lambda function...."
+      - aws lambda update-function-code --function-name pandas-function --zip-file fileb://lambda_package.zip
+      - echo "COMPLETED"
