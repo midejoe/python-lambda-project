@@ -6,6 +6,7 @@ phases:
       python: 3.8
     commands:
       - echo "Installing packages...."
+      - cd Serverless-Infra
       - pip install -r requirements.txt
   build:
     commands:
