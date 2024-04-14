@@ -7,11 +7,14 @@ phases:
     commands:
       - cd Codebuild
       - echo "Installing packages...."
-      - pip install -r requirements.txt
+      - pip install -r requirements.txt -t library
   build:
     commands:
       - echo "Zip the lambda package...."
-      - zip -r lambda_package.zip lambda_function.py requirements.txt
+      - cd library
+      - zip -r9 ../lambda_package.zip .
+      - cd ..
+      - zip -g lambda_package.zip lambda_function.py
   post_build:
     commands:
       - echo "Updating the lambda function...."
