@@ -1,14 +1,16 @@
 import pandas as pd
-from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 def lambda_handler(event, context):
-    # Load the Iris dataset
-    iris = load_iris()
-    df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-    df['target'] = iris.target
+    # Create demo data
+    d = {'sepal_length': [5.1, 4.9, 4.7, 4.6, 5.0],
+         'sepal_width': [3.5, 3.0, 3.2, 3.1, 3.6],
+         'petal_length': [1.4, 1.4, 1.3, 1.5, 1.4],
+         'petal_width': [0.2, 0.2, 0.2, 0.2, 0.2],
+         'target': [0, 0, 0, 0, 0]}
+    df = pd.DataFrame(data=d)
 
     # Split dataset into features and target
     X = df.drop('target', axis=1)
@@ -31,4 +33,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': f'Accuracy: {accuracy}'
     }
-
