@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def lambda_handler(event, context):
+def handler(event, context):
     # Create a DataFrame with random data
     data = {
         'A': np.random.randint(0, 100, 10),
