@@ -1,14 +1,13 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
+FROM public.ecr.aws/lambda/python:3.11
 
-# Set the working directory in the container
-WORKDIR /app
+# Copy requirements.txt
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
 
-# Copy the code and requirements.txt file into the container
-COPY lambda_function.py requirements.txt ./
+# Install the specified packages
+RUN pip install -r requirements.txt
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy function code
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
 
-# Command to run the Lambda function
-CMD ["python", "lambda_function.py"]
+# Set the CMD to your handler
+CMD [ "lambda_function.handler" ]
