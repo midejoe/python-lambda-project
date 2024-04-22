@@ -1,24 +1,23 @@
-#data for the python file
-data "archive_file" "lambda" {
-  type        = "zip"
-  source_file = "lambda_function.py"
-  output_path = "lambda_function_payload.zip"
+# data for the ecr repository
+
+data "aws_ecr_repository" "ecr_repo" {
+  name = "modeltraining"
 }
+
 
 #lambda function resource
 resource "aws_lambda_function" "python_lambda_function" {
   architectures = [
     "x86_64",
   ]
-  filename      = "lambda_function_payload.zip"
+  
+  image_uri     = "${data.aws_ecr_repository.ecr_repo.repository_url}:latest"
   function_name = "pandas-function"
   handler       = "lambda_function.lambda_handler"
 
-  source_code_hash = data.archive_file.lambda.output_base64sha256
-
   layers                         = []
   memory_size                    = 128
-  package_type                   = "Zip"
+  package_type                   = "Image"
   reserved_concurrent_executions = -1
   role                           = aws_iam_role.test_role.arn
   runtime                        = "python3.11"
@@ -44,7 +43,7 @@ resource "aws_lambda_function" "python_lambda_function" {
   }
 }
 
-# aws_iam_role.test_role:
+# lambda function iam role
 resource "aws_iam_role" "test_role" {
   assume_role_policy = jsonencode(
     {

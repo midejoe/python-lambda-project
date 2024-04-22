@@ -1,26 +1,3 @@
-# version: 0.2
-
-# phases:
-#   install:
-#     runtime-versions:
-#       python: 3.11
-#     commands:
-#       - cd Codebuild
-#       - echo "Installing packages...."
-#       - pip install -r requirements.txt -t library
-#   build:
-#     commands:
-#       - echo "Zip the lambda package...."
-#       - cd library
-#       - zip -r9 ../lambda_package.zip .
-#       - cd ..
-#       - zip -g lambda_package.zip lambda_function.py
-#   post_build:
-#     commands:
-#       - echo "Updating the lambda function...."
-#       - aws lambda update-function-code --function-name pandas-function --zip-file fileb://lambda_package.zip
-#       - echo "COMPLETED"
-
 version: 0.2
 
 phases:
