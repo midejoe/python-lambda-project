@@ -15,10 +15,10 @@ phases:
   post_build:
     commands:
       - echo Tagging the Docker image...
-      - docker tag modeltraining:v1.0 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v1.0
+      - docker tag modeltraining:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:latest
       - echo Pushing the Docker image to Amazon ECR...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v1.0
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:latest
       - echo Docker image pushed successfully
-      # - echo Updating the Lambda function with the new Docker image...
-      # - aws lambda update-function-code --function-name $FUNCTION_NAME --image-uri $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v2.0
-      # - echo Lambda function updated successfully
+      - echo Updating the Lambda function with the new Docker image...
+      - aws lambda update-function-code --function-name $FUNCTION_NAME --image-uri $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:latest
+      - echo Lambda function updated successfully
