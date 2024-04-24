@@ -15,7 +15,7 @@ phases:
   post_build:
     commands:
       - echo Tagging the Docker image...
-      - docker tag modeltraining:1.0 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v1.0
+      - docker tag modeltraining:v1.0 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v1.0
       - echo Pushing the Docker image to Amazon ECR...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/modeltraining:v1.0
       - echo Docker image pushed successfully
